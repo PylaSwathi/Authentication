@@ -68,27 +68,7 @@ app.post("/login/", async (request, response) => {
   }
 });
 
-app.post("/login", async (request, response) => {
-  let { username, password } = request.body;
-  console.log(username);
-  console.log(password);
-  let checkUserQuery = `select * from user where username = '${username}'`;
-  const dbUser = await dataBase.get(checkUserQuery);
-  console.log(dbUser);
-  if (dbUser === undefined) {
-    response.status(400);
-    response.send("Invalid user");
-  } else {
-    let verifyPassword = bcrypt.compare(password, dbUser.password);
-    if (verifyPassword === true) {
-      response.status(200);
-      response.send("Login success");
-    } else {
-      response.send(400);
-      response.send("Invalid password");
-    }
-  }
-});
+
 
 app.put("/change-password", async (request, response) => {
   let { username, oldPassword, newPassword } = request.body;
